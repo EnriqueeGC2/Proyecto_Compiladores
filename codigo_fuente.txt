@@ -1,0 +1,37 @@
+Algoritmo 
+    Definir i Como Entero
+    Definir j Como Real
+    Definir k Como Caracter
+    Definir l Como Logico
+    Escribir A_Com Hola mundo C_Com
+    Leer i
+    Leer j
+    Leer k
+    Leer l
+    Para i = 0 Hasta 10 Con_Paso 1 Hacer
+        Escribir i
+    FinPara
+    Funcion suma Como Real
+        Definir a Como Real
+        Definir b Como Real
+        Definir c Como Real
+        a = 1
+        b = 2
+        c = a MAS b
+        Retornar c;
+    FinFuncion
+    Mientras i Es_Menor_Que 10 Hacer
+        Escribir i
+        i = i + 1
+    FinMientras
+    Segun i Hacer
+        1: Escribir A_Com Uno C_Com
+        2: Escribir A_Com Dos C_Com
+        3: Escribir A_Com Tres C_Com
+        De_Otro_Modo: Escribir A_Com Otro C_Com
+    FinSegun
+    Si i Es_Menor_Que 10 Entonces
+        Escribir A_Com Menor que 10 C_Com 
+    Si_No
+        Escribir A_Com Mayor o igual que 10 C_Com
+FinSi
