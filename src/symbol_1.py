@@ -1,6 +1,6 @@
 class Symbol:
-    def __init__(self, name, type=None, scope=None, visibility=None, role=None, line=None, column=None):
-        self.name = name
+    def __init__(self, value, type=None, scope=None, visibility=None, role=None, line=None, column=None):
+        self.value = value
         self.type = type
         self.scope = scope
         self.visibility = visibility

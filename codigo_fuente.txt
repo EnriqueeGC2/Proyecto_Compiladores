@@ -1,37 +1,41 @@
+Funcion suma PUN_Y_COM
+        Definir a Como Real
+        Definir b Como Real
+        Definir c Como Real
+        a ASIGNAR 1
+        b ASIGNAR 2
+        c ASIGNAR a MAS b
+        RETORNAR c
+    FinFuncion
+
 Algoritmo 
     Definir i Como Entero
     Definir j Como Real
-    Definir k Como Caracter
+    Definir k Como Caracter 
     Definir l Como Logico
-    Escribir A_Com Hola mundo C_Com
+    Escribir A_COM Hola mundo C_COM    
     Leer i
     Leer j
     Leer k
     Leer l
-    Para i = 0 Hasta 10 Con_Paso 1 Hacer
+
+    Para i Desde 0 Hasta 10 Con_Paso 1 Hacer
         Escribir i
     FinPara
-    Funcion suma Como Real
-        Definir a Como Real
-        Definir b Como Real
-        Definir c Como Real
-        a = 1
-        b = 2
-        c = a MAS b
-        Retornar c;
-    FinFuncion
-    Mientras i Es_Menor_Que 10 Hacer
+
+    Mientras i ES_MENOR_QUE 10 Hacer
         Escribir i
-        i = i + 1
+        i ASIGNAR i MAS 1
     FinMientras
     Segun i Hacer
-        1: Escribir A_Com Uno C_Com
-        2: Escribir A_Com Dos C_Com
-        3: Escribir A_Com Tres C_Com
-        De_Otro_Modo: Escribir A_Com Otro C_Com
+        1 DOS_PUN Escribir A_COM Uno C_COM
+        2 DOS_PUN Escribir A_COM Dos C_COM
+        3 DOS_PUN Escribir A_COM Tres C_COM
+        De_Otro_Modo Escribir A_COM Otro C_COM
     FinSegun
-    Si i Es_Menor_Que 10 Entonces
-        Escribir A_Com Menor que 10 C_Com 
+    Si i ES_MENOR_QUE 10 Entonces
+        Escribir A_COM Menor que 10 C_COM 
     Si_No
-        Escribir A_Com Mayor o igual que 10 C_Com
+        Escribir A_COM Mayor o igual que 10 C_COM
 FinSi
+FinAlgoritmo

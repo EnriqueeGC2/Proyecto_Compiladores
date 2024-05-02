@@ -19,7 +19,15 @@ tokens = [
     'COMO',
     'HASTA',
     'CON_PASO',
-    'FIN',
+    # FIN
+    'FIN_ALGORITMO',
+    'FIN_FUNCION',
+    'FIN_PROCEDIMIENTO',
+    'FIN_SI',
+    'FIN_SI_NO',
+    'FIN_MIENTRAS',
+    'FIN_PARA',
+    'FIN_SEGUN',
     # Procedures and functions
     'ESCRIBIR',
     'LEER',
@@ -27,6 +35,7 @@ tokens = [
     'FUNCION',
     'MIENTRAS',
     'SEGUN',
+    'DESDE',
     'HACER',
     'SI',
     'SI_NO',
@@ -43,6 +52,9 @@ tokens = [
     'ES_MAYOR_O_IGUAL_QUE',
     'ES_MENOR_O_IGUAL_QUE',
     'ES_DISTINTO_QUE',
+
+    'ASIGNAR',
+    'IGUAL_A',
     # Arithmetic Operators
     'MAS',
     'MENOS',
@@ -70,6 +82,10 @@ def t_TIPO_DATO(t):
     r'(Entero|Real|Caracter|Logico)'
     return t
 
+def t_LOGICO(t):
+    r'(VERDADERO|FALSO)'
+    return t
+
 # Reserved words
 def t_ALGORITMO(t):
     r'Algoritmo'
@@ -91,8 +107,36 @@ def t_CON_PASO(t):
     r'Con_Paso'
     return t
 
-def t_FIN(t):
-    r'Fin(Algoritmo|Funcion|Procedimiento|Si|Si_No|Mientras|Para|Segun)'
+def t_FIN_ALGORITMO(t):
+    r'FinAlgoritmo'
+    return t
+
+def t_FIN_FUNCION(t):
+    r'FinFuncion'
+    return t
+
+def t_FIN_PROCEDIMIENTO(t):
+    r'FinProcedimiento'
+    return t
+
+def t_FIN_SI(t):
+    r'FinSi'
+    return t
+
+def t_FIN_SI_NO(t):
+    r'FinSi_No'
+    return t
+
+def t_FIN_MIENTRAS(t):
+    r'FinMientras'
+    return t
+
+def t_FIN_PARA(t):
+    r'FinPara'
+    return t
+
+def t_FIN_SEGUN(t):
+    r'FinSegun'
     return t
 
 # Procedures and functions
@@ -120,6 +164,10 @@ def t_SEGUN(t):
     r'Segun'
     return t
 
+def t_DESDE(t):
+    r'Desde'
+    return t
+
 def t_HACER(t):
     r'Hacer'
     return t
@@ -133,7 +181,7 @@ def t_SI(t):
     return t
 
 def t_RETORNAR(t):
-    r'Retornar'
+    r'RETORNAR'
     return t
 
 def t_DE_OTRO_MODO(t):
@@ -158,52 +206,60 @@ def t_COMENTARIO(t):
 
 # Relational Operators
 def t_ES_MAYOR_QUE(t):
-    r'Es_Mayor_Que'
+    r'ES_MAYOR_QUE'
     return t
 
 def t_ES_MENOR_QUE(t):
-    r'Es_Menor_Que'
+    r'ES_MENOR_QUE'
     return t
 
 def t_ES_IGUAL_QUE(t):
-    r'Es_Igual_Que'
+    r'ES_IGUAL_QUE'
     return t
 
 def t_ES_MAYOR_O_IGUAL_QUE(t):
-    r'Es_Mayor_O_Igual_Que'
+    r'ES_MAYOR_O_IGUAL_QUE'
     return t
 
 def t_ES_MENOR_O_IGUAL_QUE(t):
-    r'Es_Menor_O_Igual_Que'
+    r'ES_MENOR_O_IGUAL_QUE'
     return t
 
 def t_ES_DISTINTO_QUE(t):
-    r'Es_Distinto_Que'
+    r'ES_DISTINTO_QUE'
+    return t
+
+def t_ASIGNAR(t):
+    r'ASIGNAR'
+    return t
+
+def t_IGUAL_A(t):
+    r'IGUAL_A'
     return t
 
 # Arithmetic Operators
 def t_MAS(t):
-    r'Mas'
+    r'MAS'
     return t
 
 def t_MENOS(t):
-    r'Menos'
+    r'MENOS'
     return t
 
 def t_POR(t):
-    r'Por'
+    r'POR'
     return t
 
 def t_DIVIDIDO(t):
-    r'Dividido'
+    r'DIVIDIDO'
     return t
 
 def t_ELEVADO_A(t):
-    r'Elevado_A'
+    r'ELEVADO_A'
     return t
 
 def t_RESIDUO(t):
-    r'Residuo'
+    r'RESIDUO'
     return t
 
 # Logical Operators
@@ -221,11 +277,11 @@ def t_NO(t):
 
 # Others
 def t_PAR_IZQ(t):
-    r'Par_Izq'
+    r'PAR_IZQ'
     return t
 
 def t_PAR_DER(t):
-    r'Par_Der'
+    r'PAR_DER'
     return t
 
 def t_COR_IZQ(t): # Corchete
@@ -245,7 +301,7 @@ def t_LLAVE_DER(t):
     return t
 
 def t_PUN_Y_COM(t):
-    r'Pun_Y_Com'
+    r'PUN_Y_COM'
     return t
 
 def t_COMA(t):
@@ -253,7 +309,7 @@ def t_COMA(t):
     return t
 
 def t_DOS_PUN(t):
-    r'Dos_Pun'
+    r'DOS_PUN'
     return t
 
 def t_NUMERO(t):
@@ -262,7 +318,8 @@ def t_NUMERO(t):
     return t
 
 def t_CADENA(t):
-    r'A_Com .* C_Com'
+    r'A_COM(.*?)C_COM'
+    t.value = t.value[len("A_Com"):-len("C_Com")].strip()
     return t
 
 def t_ID(t):
@@ -271,38 +328,47 @@ def t_ID(t):
 
 t_ignore = ' \t'
 
-def t_INITIAL_last_newline_pos(t):
-    r'.'
-    t.lexer.last_newline_pos = 0
-
 def t_newlline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
-    #t.lexer.last_newline_pos = t.lexer.lexpos - len(t.value)
 
 def t_INITIAL_UPPERCASE_ERROR(t):
     r'[A-Z][a-zA-Z_0-9]*'  # Identificadores que comienzan con una letra mayúscula
-    print(f'Error: {t.value} no es un identificador valido., en la linea {t.lineno} y columna {t.lexpos}.')
+    #print(f'Error: {t.value} no es un identificador valido., en la linea {t.lineno} y columna {findPosition(t)}.')
     with open('bitacora_De_Errores.html', 'a') as file:
-        file.write(f'Error: {t.value} no es un identificador valido, en la linea {t.lineno} y columna {t.lexpos}.\n')
+        file.write(f'Error: {t.value} no es un identificador valido, en la linea {t.lineno} y columna {findPosition(t)}.\n')
     t.lexer.skip(1)
 
 def t_error(t):
     #print(f'Error: Caracter inesperado "{t.value[0]}".')
     with open('bitacora_De_Errores.html', 'a') as file:
-        file.write(f'Error: Caracter inesperado "{t.value[0]}, en la linea: {t.lineno} y la posicion: {t.lexpos}".\n')
+        file.write(f'<p>Error: Caracter inesperado " {t.value[0]} ", en la linea: {t.lineno}, en la posicion: {findPosition(t)}</p>\n')
     t.lexer.skip(1)
 
-def readFile(fileName):
-    with open(fileName, 'r') as file:
-        return file.read()
+def findPosition(t):
+    inicio = t.lexer.lexdata.rfind('\n', 0, t.lexpos) + 1 # Encontrar la posicion del inicio de la linea
+    return (t.lexpos - inicio) + 1 
 
 def getTokens():
     num = 0
     with open('tokens.html', 'w') as file:
+        file.write('<html>\n<head>\n<title> Tokens Encontrados </title>\n</head>\n<body>\n')
+        file.write('<h1> Tokens Encontrados </h1>\n')
+        file.write('<table border="1">\n')
+        file.write('<tr><th>Token No.</th><th>Token Encontrado</th><th>Linea</th><th>Posicion</th>\n')
+        
         for token in tokensEncontrados:
             num += 1
-            file.write(f'<p>{num}) Token encontrado -> " {token.value} ", en la linea: {token.lineno}, en la posicion: {token.lexpos} </p>\n')
+            file.write(f'<tr><td>{num}</td><td>{token.value}</td><td>{token.lineno}</td><td>{findPosition(token)}</td></tr>\n')
+            
+        file.write('</table>\n')
+        file.write('</body>\n</html>\n')
+
+    print('Se ha creado el archivo tokens.html con los tokens encontrados.')
+
+def readFile(fileName):
+    with open(fileName, 'r') as file:
+        return file.read()
 
 def test(data):
     lexer.input(data)
@@ -310,8 +376,8 @@ def test(data):
         tok = lexer.token()
         if not tok:
             break
-        tokensEncontrados.append(tok)
-        print(tok, f"Linea: {tok.lineno}, en la posicion: {tok.lexpos}")
+        tokensEncontrados.append(tok) # Guardar los tokens encontrados
+        #print(tok, f"Linea: {tok.lineno}, en la posicion: {findPosition(tok)}")
 
 tokensEncontrados = []
 
