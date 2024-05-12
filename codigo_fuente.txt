@@ -10,7 +10,7 @@ Funcion suma PUN_Y_COM
 
 Algoritmo 
     Definir i Como Entero
-    Definir j Como Real
+    Definir j hola Real
     Definir k Como Caracter 
     Definir l Como Logico
     Escribir A_COM Hola mundo C_COM    
@@ -22,6 +22,12 @@ Algoritmo
     Para i Desde 0 Hasta 10 Con_Paso 1 Hacer
         Escribir i
     FinPara
+
+    Para hola Desde 0 Hasta 15 Con_Paso 2 Hacer
+        Escribir hola 
+    FinPara
+
+    suma PAR_IZQ PAR_DER
 
     Mientras i ES_MENOR_QUE 10 Hacer
         Escribir i
@@ -37,5 +43,7 @@ Algoritmo
         Escribir A_COM Menor que 10 C_COM 
     Si_No
         Escribir A_COM Mayor o igual que 10 C_COM
+
+    Escribir A_COM Fin del programa C_COM
 FinSi
 FinAlgoritmo

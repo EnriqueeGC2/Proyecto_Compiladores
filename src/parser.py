@@ -1,7 +1,7 @@
 import ply.yacc as yacc
 
-from lexer import tokens, findPosition, test, getTokens
-from symbol_table import insertSymbol, getSymbol, printSymbolTableHTML
+from lexer import tokens, findPosition, getTokens
+from symbol_table import insertSymbol, printSymbolTableHTML
 
 # Initial rule
 def p_programa(p):
@@ -10,17 +10,17 @@ def p_programa(p):
                 | funciones ALGORITMO cuerpo FIN_ALGORITMO
     '''
     if len(p) == 3:
-        #p[0] = p[2]
-        print(f'{p[1]}, {p[2]} ,{p[3]}')
+        p[0] = p[2]
+        #print(f'{p[1]}, {p[2]} ,{p[3]}')
     else:
         p[0] = p[1], p[2], p[3], p[4]
-        print(f'{p[1]}, {p[2]}, {p[3]}, {p[4]}')
+        #print(f'{p[1]}, {p[2]}, {p[3]}, {p[4]}')
 
 def p_cuerpo(p):
     '''
     cuerpo : sentencias
     '''
-    p [0] = p[1]
+    p[0] = p[1]
 
 def p_sentencias(p):
     '''
@@ -59,7 +59,7 @@ def p_declaracion_variable(p):
     declaracion_variable : DEFINIR ID COMO TIPO_DATO
     '''
     p[0] = ('Definicion', p[2], p[4])
-    insertSymbol(p[2], p[4], 'Global', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[2]))
+    insertSymbol(p[2], p[4], 'Global', 'Public', 'Variable', p.lineno(1),findPosition(p.slice[2]))
 
 def p_multiple_declaracion_variable(p):
     '''
@@ -361,20 +361,26 @@ def p_llamar_funcion_con_parametros(p):
     elif len(p) == 11:
         p[0] = ('Llamar_Funcion', p[1], p[3], p[5], p[7], p[9])
 
+
+def contar_lineas_hasta_posicion(texto, posicion):
+    # Contador de líneas
+    num_lineas = 1
+    # Iterar sobre el texto hasta la posición del error
+    for i in range(posicion):
+        if texto[i] == '\n':
+            num_lineas += 1
+    return num_lineas
+
 def p_error(p):
     if p:
-        print(f"Syntax error at line {p.lineno}")
+        numLinea = contar_lineas_hasta_posicion(p.lexer.lexdata, p.lexpos)
+        print(f"Syntax error at line {numLinea}")
         with open('bitacora_De_Errores.html', 'a') as f:
-            f.write(f'<p>Error Sintactico: " {p.value} " en la linea: {p.lineno}, y columna: {findPosition(p)}<p/>\n')
-        while True:
-            tok = parser.token()
-            if not tok or tok.type == 'FIN_ALGORITMO':
-                break
-        parser.restart()
+            f.write(f'<p>Error Sintactico: " {p.value} " en la linea: {numLinea}, y columna: {findPosition(p)}<p/>\n')
     else:
         print("Syntax error at EOF")
         with open('bitacora_De_Errores.html', 'a') as f:
-            f.write(f'<p>Error Sintactico: " {p.value} " en la linea: {p.lineno}, y columna: {findPosition(p)}<p/>\n')
+            f.write(f'<p>Error de sintaxis: la instruccion esta incorrecta o incompleta.<p/>\n')
 
 parser = yacc.yacc()
 
@@ -388,9 +394,13 @@ if __name__ == '__main__':
     with open(file, 'r') as f:
         data = f.read()
 
-    test(data)
+    """ test(data)
+    getTokens() """
+
+    arbolSintactico = parse(data)
+    #token = test(data)
+    #print(arbolSintactico)
+    printSymbolTableHTML()
     getTokens()
 
-arbolSintactico = parse(data)
-#print(arbolSintactico)
-printSymbolTableHTML()
+    
