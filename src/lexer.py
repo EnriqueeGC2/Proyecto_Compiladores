@@ -6,59 +6,24 @@ open('bitacora_De_Errores.html', 'w').close()
 tokens = [
     'ID', 'NUMERO', 'CADENA',
     # Data types
-    'TIPO_DATO', 'ENTERO', 'REAL', 'CARACTER', 'LOGICO',
+    'TIPO_DATO', 'ENTERO', 'REAL', 'CARACTER', 'LOGICO', 'TRUE', 'FALSE',
     # Keywords
     'ALGORITMO', 'DEFINIR', 'COMO', 'HASTA', 'CON_PASO',
     # FIN
     'FIN_ALGORITMO', 'FIN_FUNCION', 'FIN_PROCEDIMIENTO', 'FIN_SI', 'FIN_SI_NO', 'FIN_MIENTRAS', 'FIN_PARA', 'FIN_SEGUN',
     # Procedures and functions
-    'ESCRIBIR',
-    'LEER',
-    'PARA',
-    'FUNCION',
-    'MIENTRAS',
-    'SEGUN',
-    'DESDE',
-    'HACER',
-    'SI',
-    'SI_NO',
-    'RETORNAR',
-    'DE_OTRO_MODO',
-    'ENTONCES',
-    'CONVERTIRATEXTO',
-    'CONVERTIRANUMERO',
-    'COMENTARIO',
+    'ESCRIBIR', 'LEER', 'PARA', 'FUNCION', 'MIENTRAS', 'SEGUN', 'DESDE', 'HACER', 'SI','SI_NO', 'RETORNAR', 'DE_OTRO_MODO', 'ENTONCES',
+    'CONVERTIRATEXTO', 'CONVERTIRANUMERO', 'COMMENT',
     # Relational Operators
-    'ES_MAYOR_QUE',
-    'ES_MENOR_QUE',
-    'ES_IGUAL_QUE',
-    'ES_MAYOR_O_IGUAL_QUE',
-    'ES_MENOR_O_IGUAL_QUE',
-    'ES_DISTINTO_QUE',
+    'ES_MAYOR_QUE', 'ES_MENOR_QUE', 'ES_IGUAL_QUE', 'ES_MAYOR_O_IGUAL_QUE', 'ES_MENOR_O_IGUAL_QUE', 'ES_DISTINTO_QUE',
 
-    'ASIGNAR',
-    'IGUAL_A',
+    'ASIGNAR', 'IGUAL_A',
     # Arithmetic Operators
-    'MAS',
-    'MENOS',
-    'POR',
-    'DIVIDIDO',
-    'ELEVADO_A',
-    'RESIDUO',
+    'MAS', 'MENOS', 'POR', 'DIVIDIDO', 'ELEVADO_A', 'RESIDUO',
     # Logical Operators
-    'Y',
-    'O',
-    'NO',
+    'Y', 'O', 'NO',
     # Others
-    'PUN_Y_COM',
-    'COMA',
-    'DOS_PUN',
-    'PAR_IZQ',
-    'PAR_DER',
-    'COR_IZQ',
-    'COR_DER',
-    'LLAVE_IZQ',
-    'LLAVE_DER',
+    'PUN_Y_COM', 'COMA', 'DOS_PUN', 'PAR_IZQ', 'PAR_DER', 'COR_IZQ', 'COR_DER', 'LLAVE_IZQ', 'LLAVE_DER',
 ]
 
 def t_TIPO_DATO(t):
@@ -67,7 +32,7 @@ def t_TIPO_DATO(t):
     return t
 
 def t_LOGICO(t):
-    r'(VERDADERO|FALSO)'
+    r'(FALSO|VERDADERO)'
     tokensEncontrados.append(t)
     return t
 
@@ -352,6 +317,12 @@ def t_DOS_PUN(t):
     tokensEncontrados.append(t)
     return t
 
+def t_REAL(t):
+    r'\d+\.\d+'
+    t.value = float(t.value)
+    tokensEncontrados.append(t)
+    return t
+
 def t_NUMERO(t):
     r'\d+'
     t.value = int(t.value)
@@ -368,6 +339,10 @@ def t_ID(t):
     r'[a-z][_a-z_A-Z_0-9]*'  # Identificadores que comienzan con una letra minúscula
     tokensEncontrados.append(t)
     return t
+
+def t_COMMENT(t):
+    r'//.*'
+    pass
 
 t_ignore = ' \t'
 

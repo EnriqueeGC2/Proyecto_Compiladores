@@ -1,23 +1,28 @@
 Funcion suma PUN_Y_COM
-        Definir a Como Real
+        Definir u Como Entero
         Definir b Como Real
         Definir c Como Real
-        a ASIGNAR 1
-        b ASIGNAR 2
-        c ASIGNAR a MAS b
+        Definir w COMA q Como Entero
+
+        Escribir A_COM estoy dentro de una funcion C_COM
+        u ASIGNAR 1.5
         RETORNAR c
     FinFuncion
 
 Algoritmo 
-    Definir i Como Entero
-    Definir j hola Real
+    Definir u Como Entero
+    Definir j Como Real
     Definir k Como Caracter 
     Definir l Como Logico
+    var1 ASIGNAR 0
+    var2 ASIGNAR 10 MAS A_COM Hola Mundo C_COM
     Escribir A_COM Hola mundo C_COM    
-    Leer i
+    Leer u
     Leer j
     Leer k
     Leer l
+
+    var2 ASIGNAR 2 MAS A_COM esto deberia ser un error semantico C_COM
 
     Para i Desde 0 Hasta 10 Con_Paso 1 Hacer
         Escribir i
@@ -29,7 +34,7 @@ Algoritmo
 
     suma PAR_IZQ PAR_DER
 
-    Mientras i ES_MENOR_QUE 10 Hacer
+    Mientras VERDADERO Hacer
         Escribir i
         i ASIGNAR i MAS 1
     FinMientras
