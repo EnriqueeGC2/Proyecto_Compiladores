@@ -69,7 +69,7 @@ Rule 46    mientras_declaraciones -> mientras_v1
 Rule 47    mientras_declaraciones -> mientras_v2
 Rule 48    mientras_declaraciones -> mientras_v3
 Rule 49    mientras_v1 -> MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-Rule 50    mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+Rule 50    mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
 Rule 51    mientras_v3 -> MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 Rule 52    expresion_logica -> tipo_dato_identificador operador_relacional tipo_dato_identificador
 Rule 53    expresion_logica -> expresion_logica operador_logico expresion_logica
@@ -182,7 +182,7 @@ ES_MENOR_QUE         : 63
 FALSO                : 
 FIN_ALGORITMO        : 1 2
 FIN_FUNCION          : 118 119 120
-FIN_MIENTRAS         : 49 50 51
+FIN_MIENTRAS         : 49 50 50 51
 FIN_PARA             : 43
 FIN_PROCEDIMIENTO    : 
 FIN_SEGUN            : 82
@@ -367,7 +367,7 @@ state 2
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -545,7 +545,7 @@ state 11
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
   ! shift/reduce conflict for MIENTRAS resolved as shift
@@ -1037,7 +1037,7 @@ state 32
     (47) mientras_declaraciones -> . mientras_v2
     (48) mientras_declaraciones -> . mientras_v3
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
   ! shift/reduce conflict for MIENTRAS resolved as shift
@@ -1283,7 +1283,7 @@ state 42
 state 43
 
     (49) mientras_v1 -> MIENTRAS . expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> MIENTRAS . expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> MIENTRAS . expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> MIENTRAS . LOGICO HACER sentencias FIN_MIENTRAS
     (52) expresion_logica -> . tipo_dato_identificador operador_relacional tipo_dato_identificador
     (53) expresion_logica -> . expresion_logica operador_logico expresion_logica
@@ -1364,7 +1364,7 @@ state 44
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -1993,7 +1993,7 @@ state 68
 state 69
 
     (49) mientras_v1 -> MIENTRAS expresion_logica . HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> MIENTRAS expresion_logica . HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> MIENTRAS expresion_logica . HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (53) expresion_logica -> expresion_logica . operador_logico expresion_logica
     (59) operador_logico -> . Y
     (60) operador_logico -> . O
@@ -2090,7 +2090,7 @@ state 72
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -2491,7 +2491,7 @@ state 88
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -2669,7 +2669,7 @@ state 99
 state 100
 
     (49) mientras_v1 -> MIENTRAS expresion_logica HACER . sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> MIENTRAS expresion_logica HACER . sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> MIENTRAS expresion_logica HACER . sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (4) sentencias -> . sentencia sentencias
     (5) sentencias -> . sentencia
     (6) sentencia -> . posible_declaracion_variable
@@ -2728,7 +2728,7 @@ state 100
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -2828,7 +2828,7 @@ state 101
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -2953,7 +2953,7 @@ state 105
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     FIN_FUNCION     reduce using rule 93 (sentencias_funcion -> sentencia_funcion .)
@@ -3663,7 +3663,7 @@ state 148
 state 149
 
     (49) mientras_v1 -> MIENTRAS expresion_logica HACER sentencias . FIN_MIENTRAS
-    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
 
     FIN_MIENTRAS    shift and go to state 173
     MIENTRAS        shift and go to state 172
@@ -3911,7 +3911,7 @@ state 162
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -4018,7 +4018,7 @@ state 164
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -4118,7 +4118,7 @@ state 165
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -4257,7 +4257,7 @@ state 171
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -4298,7 +4298,7 @@ state 171
 
 state 172
 
-    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS . expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS . expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (52) expresion_logica -> . tipo_dato_identificador operador_relacional tipo_dato_identificador
     (53) expresion_logica -> . expresion_logica operador_logico expresion_logica
     (54) tipo_dato_identificador -> . ID
@@ -4480,7 +4480,7 @@ state 182
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -4708,7 +4708,7 @@ state 194
 
 state 195
 
-    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica . HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica . HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (53) expresion_logica -> expresion_logica . operador_logico expresion_logica
     (59) operador_logico -> . Y
     (60) operador_logico -> . O
@@ -4888,7 +4888,7 @@ state 208
 
 state 209
 
-    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER . sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER . sentencias FIN_MIENTRAS FIN_MIENTRAS
     (4) sentencias -> . sentencia sentencias
     (5) sentencias -> . sentencia
     (6) sentencia -> . posible_declaracion_variable
@@ -4947,7 +4947,7 @@ state 209
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -5148,7 +5148,7 @@ state 219
 
 state 220
 
-    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias . FIN_MIENTRAS
+    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias . FIN_MIENTRAS FIN_MIENTRAS
 
     FIN_MIENTRAS    shift and go to state 228
 
@@ -5254,7 +5254,7 @@ state 225
     (128) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (129) llamar_funcion -> . ID PAR_IZQ tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador COMA tipo_dato_identificador PAR_DER
     (49) mientras_v1 -> . MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
-    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    (50) mientras_v2 -> . MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     (51) mientras_v3 -> . MIENTRAS LOGICO HACER sentencias FIN_MIENTRAS
 
     LEER            shift and go to state 27
@@ -5309,27 +5309,9 @@ state 227
 
 state 228
 
-    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .
+    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS . FIN_MIENTRAS
 
-    MIENTRAS        reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    LEER            reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    PARA            reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    SEGUN           reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    DEFINIR         reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    ESCRIBIR        reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    ID              reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    SI              reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    FIN_ALGORITMO   reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    FIN_SI          reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    SI_NO           reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    FIN_MIENTRAS    reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    FIN_SEGUN       reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    NUMERO          reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    CADENA          reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    DE_OTRO_MODO    reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    FIN_PARA        reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    FIN_FUNCION     reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
-    RETORNAR        reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS .)
+    FIN_MIENTRAS    shift and go to state 236
 
 
 state 229
@@ -5337,14 +5319,14 @@ state 229
     (108) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA . ID COMO TIPO_DATO
     (109) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA . ID COMA ID COMO TIPO_DATO
 
-    ID              shift and go to state 236
+    ID              shift and go to state 237
 
 
 state 230
 
     (107) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMO . TIPO_DATO
 
-    TIPO_DATO       shift and go to state 237
+    TIPO_DATO       shift and go to state 238
 
 
 state 231
@@ -5384,14 +5366,14 @@ state 233
 
     (43) para -> PARA ID DESDE NUMERO HASTA NUMERO CON_PASO NUMERO HACER sentencias . FIN_PARA
 
-    FIN_PARA        shift and go to state 238
+    FIN_PARA        shift and go to state 239
 
 
 state 234
 
     (21) multiple_declaracion_variable -> DEFINIR ID COMA ID COMA ID COMA ID COMA ID . COMO TIPO_DATO
 
-    COMO            shift and go to state 239
+    COMO            shift and go to state 240
 
 
 state 235
@@ -5419,14 +5401,39 @@ state 235
 
 state 236
 
-    (108) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID . COMO TIPO_DATO
-    (109) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID . COMA ID COMO TIPO_DATO
+    (50) mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .
 
-    COMO            shift and go to state 241
-    COMA            shift and go to state 240
+    MIENTRAS        reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    LEER            reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    PARA            reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    SEGUN           reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    DEFINIR         reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    ESCRIBIR        reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    ID              reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    SI              reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    FIN_ALGORITMO   reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    FIN_SI          reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    SI_NO           reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    FIN_MIENTRAS    reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    FIN_SEGUN       reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    NUMERO          reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    CADENA          reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    DE_OTRO_MODO    reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    FIN_PARA        reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    FIN_FUNCION     reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
+    RETORNAR        reduce using rule 50 (mientras_v2 -> MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS .)
 
 
 state 237
+
+    (108) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID . COMO TIPO_DATO
+    (109) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID . COMA ID COMO TIPO_DATO
+
+    COMO            shift and go to state 242
+    COMA            shift and go to state 241
+
+
+state 238
 
     (107) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMO TIPO_DATO .
 
@@ -5442,7 +5449,7 @@ state 237
     RETORNAR        reduce using rule 107 (multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMO TIPO_DATO .)
 
 
-state 238
+state 239
 
     (43) para -> PARA ID DESDE NUMERO HASTA NUMERO CON_PASO NUMERO HACER sentencias FIN_PARA .
 
@@ -5467,28 +5474,28 @@ state 238
     RETORNAR        reduce using rule 43 (para -> PARA ID DESDE NUMERO HASTA NUMERO CON_PASO NUMERO HACER sentencias FIN_PARA .)
 
 
-state 239
+state 240
 
     (21) multiple_declaracion_variable -> DEFINIR ID COMA ID COMA ID COMA ID COMA ID COMO . TIPO_DATO
 
-    TIPO_DATO       shift and go to state 242
-
-
-state 240
-
-    (109) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID COMA . ID COMO TIPO_DATO
-
-    ID              shift and go to state 243
+    TIPO_DATO       shift and go to state 243
 
 
 state 241
 
-    (108) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID COMO . TIPO_DATO
+    (109) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID COMA . ID COMO TIPO_DATO
 
-    TIPO_DATO       shift and go to state 244
+    ID              shift and go to state 244
 
 
 state 242
+
+    (108) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID COMO . TIPO_DATO
+
+    TIPO_DATO       shift and go to state 245
+
+
+state 243
 
     (21) multiple_declaracion_variable -> DEFINIR ID COMA ID COMA ID COMA ID COMA ID COMO TIPO_DATO .
 
@@ -5511,14 +5518,14 @@ state 242
     FIN_PARA        reduce using rule 21 (multiple_declaracion_variable -> DEFINIR ID COMA ID COMA ID COMA ID COMA ID COMO TIPO_DATO .)
 
 
-state 243
+state 244
 
     (109) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID COMA ID . COMO TIPO_DATO
 
-    COMO            shift and go to state 245
+    COMO            shift and go to state 246
 
 
-state 244
+state 245
 
     (108) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID COMO TIPO_DATO .
 
@@ -5534,14 +5541,14 @@ state 244
     RETORNAR        reduce using rule 108 (multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID COMO TIPO_DATO .)
 
 
-state 245
+state 246
 
     (109) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID COMA ID COMO . TIPO_DATO
 
-    TIPO_DATO       shift and go to state 246
+    TIPO_DATO       shift and go to state 247
 
 
-state 246
+state 247
 
     (109) multiple_declaracion_variable_funcion -> DEFINIR ID COMA ID COMA ID COMA ID COMA ID COMO TIPO_DATO .
 

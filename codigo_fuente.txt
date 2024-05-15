@@ -17,7 +17,7 @@ Algoritmo
     Definir k Como Caracter 
     Definir l Como Logico
     var1 ASIGNAR 0
-    var2 ASIGNAR 10 MAS A_COM Hola Mundo C_COM
+    var2 ASIGNAR A_COM Hola Mundo C_COM MAS 10
     Escribir A_COM Hola mundo C_COM    
     Leer u
     Leer j
@@ -36,7 +36,7 @@ Algoritmo
 
     suma PAR_IZQ PAR_DER
 
-    Mientras VERDADERO Hacer
+    Mientras i ES_MAYOR_QUE 5 Hacer
         Escribir i
         i ASIGNAR i MAS 1
     FinMientras

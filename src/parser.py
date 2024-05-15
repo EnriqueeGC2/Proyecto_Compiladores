@@ -109,41 +109,13 @@ def p_asignacion(p):
     #p[0] = ('Asignacion', p[1], p[3])
     variable = p[1]
     tipo_expresion = p[3] 
-    
-
-    if type(tipo_expresion) == float:
-        tipo_expresion = 'Real'
-    elif type(tipo_expresion) == int:
-        tipo_expresion = 'Entero'
-    elif type(tipo_expresion) == str:
-        tipo_expresion = 'Caracter'
-    elif type(tipo_expresion) == bool:
-        #tipo_expresion = 'Logico'
-        if tipo_expresion == True:
-            tipo_expresion = 'Verdadero'
-        else:
-            tipo_expresion = 'Falso'
-
-    symbol_entry = symbol_table.getSymbolFunction(variable)
-    if symbol_entry is None:
-        symbol_entry = symbol_table.getSymbol(variable)
-
-    # Verificar si la variable ya existe en la tabla de símbolos
-    if symbol_entry:
-        # La variable ya existe, verifica los tipos
-        tipo_variable = symbol_table.getSymbolFunction(variable).type
-        #print(tipo_variable)
-        if tipo_variable == tipo_expresion or (tipo_variable == 'Real' and tipo_expresion == 'Numero') or (tipo_variable == 'Logico' and tipo_expresion == 'Verdadero' or tipo_expresion == 'Falso'):
-            # Tipos compatibles o conversión implícita de 'Numero' a 'Real'
-            p[0] = ('Asignacion', variable, tipo_expresion)
-        else:
-            #print(f"Error semántico: La variable '{variable}' tiene tipo '{tipo_variable}', pero la expresión tiene tipo '{tipo_expresion}'.")
-            with open('bitacora_De_Errores.html', 'a') as f:
-                f.write(f"<p>Error Semántico: La variable '{variable}' tiene tipo '{tipo_variable}', pero la expresión tiene tipo '{tipo_expresion}'. en la linea: {p.lineno(1)}, y columna: {findPosition(p.slice[1])}<p/>\n")
-    else:
-        #print(f"Error semántico: La variable '{variable}' no ha sido declarada previamente.")
-        with open('bitacora_De_Errores.html', 'a') as f:
-            f.write(f"<p>Error Semántico: La variable '{variable}' no ha sido declarada previamente. en la linea: {p.lineno(1)}, y columna: {findPosition(p.slice[1])}<p/>\n") 
+    tipo_expresion = validador.obtener_tipo_expresion(tipo_expresion)
+    try:
+        resultado = validador.verificar_variable(variable, tipo_expresion, p, posicion=findPosition(p.slice[1]))
+        if resultado:
+            p[0] = resultado
+    except Exception as e:
+        print(e)
 
 def p_asignacion_con_operacion(p):
     '''
@@ -232,7 +204,7 @@ def p_mientras_v1(p):
 
 def p_mientras_v2(p):
     '''
-    mientras_v2 : MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS
+    mientras_v2 : MIENTRAS expresion_logica HACER sentencias MIENTRAS expresion_logica HACER sentencias FIN_MIENTRAS FIN_MIENTRAS
     '''
     p[0] = ('Mientras', p[2], p[4], p[6], p[8], p[9])
 
@@ -296,11 +268,10 @@ def p_operacion_matematica(p):
     operacion_matematica : tipo_dato_identificador operador_aritmetico tipo_dato_identificador
     '''
     #p[0] = (p[1], p[2], p[3])
-    linea = p.lineno
-    if type(p[1]) == int and type(p[3]) == str:
+    if type(p[1]) == int and type(p[3]) == str or type(p[1]) == str and type(p[3]) == int or type(p[1]) == str and type(p[3]) == float or type(p[1]) == float and type(p[3]) == str:
         #print(f"Error semántico: No se puede realizar la operación matemática entre '{p[1]}' y '{p[3]}'.")
         with open('bitacora_De_Errores.html', 'a') as f:
-            f.write(f"<p>Error Semántico: No se puede realizar la operación matemática entre '{p[1]}' y '{p[3]}'. en la linea: {linea}<p/>\n")#, y columna: {findPosition(p.slice[0])}
+            f.write(f"<p>Error Semántico: No se puede realizar la operación matemática entre '{p[1]}' y '{p[3]}'. en la linea: {p.lineno}<p/>\n")#, y columna: {findPosition(p.slice[0])}
     else:
         p[0] = (p[1], p[2], p[3])
 

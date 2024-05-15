@@ -29,5 +29,5 @@ class ValidadorSemantico:
                     f.write(f"<p>Error Semántico: La variable '{variable}' tiene tipo '{tipo_variable}', pero la expresión tiene tipo '{tipo_expresion}'. en la linea: {p.lineno(1)}, y columna: {posicion}<p/>\n")
         else:
             with open('bitacora_De_Errores.html', 'a') as f:
-                f.write(f"<p>Error Semántico: La variable '{variable}' no ha sido declarada previamente. en la linea: {p.lineno(1)}, y columna: {posicion} <p/>\n")
+                f.write(f"<p>Error Semántico: La variable '{variable}' no ha sido declarada previamente. En la linea: {p.lineno(1)}, posición: {posicion} <p/>\n")
         return None
