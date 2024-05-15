@@ -3,8 +3,10 @@ import ply.yacc as yacc
 from lexer import tokens, findPosition, getTokens
 from symbol_table import SymbolTable
 
-symbol_table = SymbolTable()
+from semantic_analyzer import ValidadorSemantico
 
+symbol_table = SymbolTable()
+validador = ValidadorSemantico(symbol_table)
 # Initial rule
 def p_programa(p):
     '''
@@ -106,18 +108,32 @@ def p_asignacion(p):
     '''
     #p[0] = ('Asignacion', p[1], p[3])
     variable = p[1]
-    tipo_expresion = p[3]
+    tipo_expresion = p[3] 
+    
+
     if type(tipo_expresion) == float:
         tipo_expresion = 'Real'
     elif type(tipo_expresion) == int:
         tipo_expresion = 'Entero'
+    elif type(tipo_expresion) == str:
+        tipo_expresion = 'Caracter'
+    elif type(tipo_expresion) == bool:
+        #tipo_expresion = 'Logico'
+        if tipo_expresion == True:
+            tipo_expresion = 'Verdadero'
+        else:
+            tipo_expresion = 'Falso'
+
+    symbol_entry = symbol_table.getSymbolFunction(variable)
+    if symbol_entry is None:
+        symbol_entry = symbol_table.getSymbol(variable)
 
     # Verificar si la variable ya existe en la tabla de símbolos
-    if symbol_table.getSymbolFunction(variable):
+    if symbol_entry:
         # La variable ya existe, verifica los tipos
         tipo_variable = symbol_table.getSymbolFunction(variable).type
         #print(tipo_variable)
-        if tipo_variable == tipo_expresion or (tipo_variable == 'Real' and tipo_expresion == 'Numero'):
+        if tipo_variable == tipo_expresion or (tipo_variable == 'Real' and tipo_expresion == 'Numero') or (tipo_variable == 'Logico' and tipo_expresion == 'Verdadero' or tipo_expresion == 'Falso'):
             # Tipos compatibles o conversión implícita de 'Numero' a 'Real'
             p[0] = ('Asignacion', variable, tipo_expresion)
         else:
@@ -127,7 +143,7 @@ def p_asignacion(p):
     else:
         #print(f"Error semántico: La variable '{variable}' no ha sido declarada previamente.")
         with open('bitacora_De_Errores.html', 'a') as f:
-            f.write(f"<p>Error Semántico: La variable '{variable}' no ha sido declarada previamente. en la linea: {p.lineno(1)}, y columna: <p/>\n")
+            f.write(f"<p>Error Semántico: La variable '{variable}' no ha sido declarada previamente. en la linea: {p.lineno(1)}, y columna: {findPosition(p.slice[1])}<p/>\n") 
 
 def p_asignacion_con_operacion(p):
     '''
@@ -178,11 +194,6 @@ def p_escribir_cadena_id_id(p):
     escribir_cadena_id_id : ESCRIBIR CADENA COMA ID COMA CADENA COMA ID
                             | ESCRIBIR ID COMA CADENA COMA ID COMA CADENA
     '''
-    #symbol_table.insertSymbol(f"{p[2]}, {p[4]}, {p[6]}, {p[8]}", 'Cadena', 'Global', 'Public', 'Texto', p.lineno(1), f"{findPosition(p.slice[2])}, {findPosition(p.slice[4])}, {findPosition(p.slice[6])}, {findPosition(p.slice[8])}")
-    #symbol_table.insertSymbol(p[2], 'Cadena', 'Global', 'Public', 'Texto', p.lineno(1), findPosition(p.slice[2]))
-    #symbol_table.insertSymbol(p[4], 'Cadena', 'Global', 'Public', 'Texto', p.lineno(1), findPosition(p.slice[4]))
-    #symbol_table.insertSymbol(p[6], 'Cadena', 'Global', 'Public', 'Texto', p.lineno(1), findPosition(p.slice[6]))
-    #symbol_table.insertSymbol(p[8], 'Cadena', 'Global', 'Public', 'Texto', p.lineno(1), findPosition(p.slice[8]))
     p[0] = ('Escribir', p[2], p[4], p[6], p[8])
 
 def p_leer(p):
@@ -245,6 +256,7 @@ def p_tipo_dato_identificador(p):
                             | NUMERO
                             | CADENA
                             | REAL
+                            | LOGICO
     '''
     p[0] = p[1]
 

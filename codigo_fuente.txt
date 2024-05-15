@@ -1,11 +1,13 @@
 Funcion suma PUN_Y_COM
         Definir u Como Entero
-        Definir b Como Real
+        Definir b Como Logico
         Definir c Como Real
         Definir w COMA q Como Entero
 
         Escribir A_COM estoy dentro de una funcion C_COM
         u ASIGNAR 1.5
+        b ASIGNAR VERDADERO
+
         RETORNAR c
     FinFuncion
 

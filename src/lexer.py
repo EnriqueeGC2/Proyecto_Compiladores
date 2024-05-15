@@ -6,7 +6,7 @@ open('bitacora_De_Errores.html', 'w').close()
 tokens = [
     'ID', 'NUMERO', 'CADENA',
     # Data types
-    'TIPO_DATO', 'ENTERO', 'REAL', 'CARACTER', 'LOGICO', 'TRUE', 'FALSE',
+    'TIPO_DATO', 'ENTERO', 'REAL', 'CARACTER', 'LOGICO', 'VERDADERO', 'FALSO',
     # Keywords
     'ALGORITMO', 'DEFINIR', 'COMO', 'HASTA', 'CON_PASO',
     # FIN
@@ -33,6 +33,11 @@ def t_TIPO_DATO(t):
 
 def t_LOGICO(t):
     r'(FALSO|VERDADERO)'
+    #t.value = True if t.value == 'VERDADERO' else False
+    if t.value == 'VERDADERO':
+        t.value = True
+    else:
+        t.value = False
     tokensEncontrados.append(t)
     return t
 
