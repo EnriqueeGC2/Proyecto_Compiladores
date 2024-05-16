@@ -49,7 +49,7 @@ def p_sentencia(p):
                 | llamar_funciones
     '''
     p[0] = p[1]
-    p.set_lineno(0, p.lineno(1))
+    #p.set_lineno(0, p.lineno(1))
 
 def p_posible_declaracion_variable(p):
     '''
@@ -63,123 +63,69 @@ def p_declaracion_variable(p):
     declaracion_variable : DEFINIR ID COMO TIPO_DATO
     '''
     p[0] = ('Definicion', p[2], p[4])
-    symbol_table.insertSymbol(p[2], p[4], 'Local', 'Public', 'Variable', p.lineno(1),findPosition(p.slice[2]), len(p[2]))
+    symbol_table.insertSymbol(p[2], p[4], 'Local', 'Public', 'Variable (Algoritmo)', p.lineno(1),findPosition(p.slice[2]), len(p[2]))
 
 def p_multiple_declaracion_variable(p):
     '''
-    multiple_declaracion_variable : DEFINIR ID COMA ID COMO TIPO_DATO
-                                | DEFINIR ID COMA ID COMA ID COMO TIPO_DATO
-                                | DEFINIR ID COMA ID COMA ID COMA ID COMO TIPO_DATO
-                                | DEFINIR ID COMA ID COMA ID COMA ID COMA ID COMO TIPO_DATO
+    multiple_declaracion_variable : DEFINIR ids COMO TIPO_DATO
     '''
-    if len(p) == 7:
-        p[0] = ('Definicion', p[2], p[4], p[6])
-        symbol_table.insertSymbol(p[2], p[6], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[2]), len(p[2]))
-        symbol_table.insertSymbol(p[4], p[6], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[4]), len(p[4]))
-    elif len(p) == 9:
-        p[0] = ('Definicion', p[2], p[4], p[6], p[8])
-        symbol_table.insertSymbol(p[2], p[8], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[2]), len(p[2]))
-        symbol_table.insertSymbol(p[4], p[8], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[4]), len(p[4]))
-        symbol_table.insertSymbol(p[6], p[8], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[6]), len(p[6]))
-    elif len(p) == 11:
-        p[0] = ('Definicion', p[2], p[4], p[6], p[8], p[10])
-        symbol_table.insertSymbol(p[2], p[10], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[2]), len(p[2]))
-        symbol_table.insertSymbol(p[4], p[10], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[4]), len(p[4]))
-        symbol_table.insertSymbol(p[6], p[10], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[6]), len(p[6]))
-        symbol_table.insertSymbol(p[8], p[10], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[8]), len(p[8]))
-    elif len(p) == 13:
-        p[0] = ('Definicion', p[2], p[4], p[6], p[8], p[10], p[12])
-        symbol_table.insertSymbol(p[2], p[12], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[2]), len(p[2]))
-        symbol_table.insertSymbol(p[4], p[12], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[4]), len(p[4]))
-        symbol_table.insertSymbol(p[6], p[12], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[6]), len(p[6]))
-        symbol_table.insertSymbol(p[8], p[12], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[8]), len(p[8]))
-        symbol_table.insertSymbol(p[10], p[12], 'Local', 'Public', 'Variable', p.lineno(1), findPosition(p.slice[10]), len(p[10]))
+    p[0] = ('Definicion', p[2], p[4])
+    posicion = 7
+    for var in p[2]:
+        symbol_table.insertSymbol(var, p[4], 'Local', 'Public', 'Variable (Algoritmo)', p.lineno(1), (findPosition(p.slice[1]) + posicion), len(var))
+        posicion += len(var) + 6
 
-def p_asignaciones(p):
+def p_ids(p):
     '''
-    asignaciones : asignacion
-                | asignacion_con_operacion
+    ids : ID
+        | ID COMA ids
     '''
-    p[0] = p[1]
-
-def p_asignacion(p):
-    '''
-    asignacion : ID ASIGNAR tipo_dato_identificador
-    '''
-    #p[0] = ('Asignacion', p[1], p[3])
-    variable = p[1]
-    tipo_expresion = p[3] 
-    tipo_expresion = validador.obtener_tipo_expresion(tipo_expresion)
-    try:
-        resultado = validador.verificar_variable(variable, tipo_expresion, p, posicion=findPosition(p.slice[1]))
-        if resultado:
-            p[0] = resultado
-    except Exception as e:
-        print(e)
-
-def p_asignacion_con_operacion(p):
-    '''
-    asignacion_con_operacion : ID ASIGNAR operaciones_matematicas
-    '''
-    p[0] = ('Asignacion', p[1], p[3])
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[3]
 
 def p_estructura_escribir(p):
     '''
-    estructura_escribir : escribir
-                        | escribir_cadena_id
-                        | escribir_cadena_id_cadena
-                        | escribir_cadena_id_id
+    estructura_escribir : ESCRIBIR lista_escribir
     '''
-    p[0] = p[1]
-
-def p_escribir(p):
-    '''
-    escribir : ESCRIBIR CADENA
-                | ESCRIBIR ID
-                | ESCRIBIR NUMERO
-    '''
-    #symbol_table.insertSymbol(p[2], 'Cadena', 'Global', 'Public', 'Texto', p.lineno(1), findPosition(p.slice[2]))
     p[0] = ('Escribir', p[2])
 
-def p_escribir_cadena_id(p):
+def p_lista_escribir(p):
     '''
-    escribir_cadena_id : ESCRIBIR CADENA COMA ID
-                        | ESCRIBIR ID COMA CADENA
-                        | ESCRIBIR ID COMA ID
-                        | ESCRIBIR ID COMA NUMERO
-                        | ESCRIBIR NUMERO COMA ID
+    lista_escribir : lista_escribir COMA elemento_escribir
+                   | elemento_escribir
     '''
-    #symbol_table.insertSymbol(p[4], 'Cadena', 'Global', 'Public', 'Texto', p.lineno(1), findPosition(p.slice[4]))
-    p[0] = ('Escribir', p[2], p[4])
+    if len(p) == 4:
+        p[0] = p[1] + [p[3]]
+    else:
+        p[0] = [p[1]]
 
-def p_escribir_cadena_id_cadena(p):
+def p_elemento_escribir(p):
     '''
-    escribir_cadena_id_cadena : ESCRIBIR CADENA COMA ID COMA CADENA
-                                | ESCRIBIR ID COMA CADENA COMA ID
+    elemento_escribir : CADENA
+                      | ID
+                      | NUMERO
     '''
-    #symbol_table.insertSymbol(p[6], 'Cadena', 'Global', 'Public', 'Texto', p.lineno(1), findPosition(p.slice[6]))
-    p[0] = ('Escribir', p[2], p[4], p[6])
-        
-
-def p_escribir_cadena_id_id(p):
-    '''
-    escribir_cadena_id_id : ESCRIBIR CADENA COMA ID COMA CADENA COMA ID
-                            | ESCRIBIR ID COMA CADENA COMA ID COMA CADENA
-    '''
-    p[0] = ('Escribir', p[2], p[4], p[6], p[8])
+    p[0] = p[1]
 
 def p_leer(p):
     '''
     leer : LEER ID
     '''
-    p[0] = ('Leer', p[2])
+    var = symbol_table.getSymbol(p[2])
+    if var:
+        p[0] = ('Leer', p[2])
+    else:
+        with open('bitacora_De_Errores.html', 'a') as f:
+            f.write(f"<p>Error Semántico: La variable '{p[2]}' no ha sido declarada previamente. En la línea: {p.lineno(1)}, posicion: {findPosition(p.slice[2])}.</p>\n")
 
 def p_para(p):
     '''
     para : PARA ID DESDE NUMERO HASTA NUMERO CON_PASO NUMERO HACER sentencias FIN_PARA
     '''
     p[0] = ('Para', p[2], p[4], p[6], p[8])
-    symbol_table.insertSymbol(p[2], 'Entero', 'Local', 'Public', 'Variable de control', p.lineno(1), findPosition(p.slice[2]), len(p[2]))
+    symbol_table.insertSymbol(p[2], 'Entero', 'Local', 'Public', 'Variable Temporal', p.lineno(1), findPosition(p.slice[2]), len(p[2]))
 
 def p_mientras(p):
     '''
@@ -214,6 +160,49 @@ def p_mientras_v3(p):
     '''
     #LOGICO = VERDADERO | FALSO
     p[0] = ('Mientras', p[2], p[4], p[5])
+
+def p_asignaciones(p):
+    '''
+    asignaciones : asignacion asignaciones
+                | asignacion
+    '''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[2]
+
+def p_asignacion(p):
+    '''
+    asignacion : asignacion_v1
+                | asignacion_con_operacion 
+    '''
+    p[0] = p[1]
+
+def p_asignacion_v1(p):
+    '''
+    asignacion_v1 : ID ASIGNAR tipo_dato_identificador
+    '''
+    #p[0] = ('Asignacion', p[1], p[3])
+    variable = p[1]
+    tipo_expresion = p[3] 
+    tipo_expresion = validador.obtener_tipo_expresion(tipo_expresion)
+    try:
+        resultado = validador.verificar_variable(variable, tipo_expresion, p, posicion=findPosition(p.slice[1]))
+        if resultado:
+            p[0] = resultado
+    except Exception as e:
+        print(e)
+
+def p_asignacion_con_operacion(p):
+    '''
+    asignacion_con_operacion : ID ASIGNAR operaciones_matematicas
+    '''
+    id = symbol_table.getSymbol(p[1])
+    if id:
+        p[0] = ('Asignacion', p[1], p[3])
+    else:
+        with open('bitacora_De_Errores.html', 'a') as f:
+            f.write(f"<p>Error Semántico: La variable '{p[1]}' no ha sido declarada previamente. En la línea: {p.lineno(1)}, posicion: {findPosition(p.slice[1])}.</p>\n")
 
 def p_expresion_logica(p):
     '''
@@ -253,27 +242,71 @@ def p_operador_relacional(p):
 
 def p_operaciones_matematicas(p):
     '''
-    operaciones_matematicas : operacion_matematica
-                            | operacion_matematica_parentesis
-                            | operacion_matematica_parentesis operacion_matematica
-                            | operacion_matematica operaciones_matematicas
+    operaciones_matematicas : operacion_matematica_v1
+                            | operacion_matematica_v2
     '''
-    if len(p) == 2:
-        p[0] = [p[1]]
-    else:
-        p[0] = [p[1]] + p[2]
+    p[0] = p[1]
 
-def p_operacion_matematica(p):
+def p_operacion_matematica_v1(p):
     '''
-    operacion_matematica : tipo_dato_identificador operador_aritmetico tipo_dato_identificador
+    operacion_matematica_v1 : tipo_dato_identificador operador_aritmetico tipo_dato_identificador
     '''
-    #p[0] = (p[1], p[2], p[3])
-    if type(p[1]) == int and type(p[3]) == str or type(p[1]) == str and type(p[3]) == int or type(p[1]) == str and type(p[3]) == float or type(p[1]) == float and type(p[3]) == str:
-        #print(f"Error semántico: No se puede realizar la operación matemática entre '{p[1]}' y '{p[3]}'.")
-        with open('bitacora_De_Errores.html', 'a') as f:
-            f.write(f"<p>Error Semántico: No se puede realizar la operación matemática entre '{p[1]}' y '{p[3]}'. en la linea: {p.lineno}<p/>\n")#, y columna: {findPosition(p.slice[0])}
+    symbol1 = symbol_table.getSymbol(p[1])
+    symbol2 = symbol_table.getSymbol(p[3])
+
+    # Verificar si p[1] es una variable en la tabla de símbolos
+    if symbol1:
+        # Si p[3] es un entero, permitir la operación si p[1] es numérico
+        if isinstance(p[3], int) and symbol1.type in ['Entero', 'Real']:
+            p[0] = ('Operacion Matematica', p[1], p[2], p[3])
+            return  # Salir de la función después de permitir la operación
+        # Si p[3] es una variable, verificar si p[1] y p[3] son compatibles
+        elif symbol2 and symbol1.type == symbol2.type:
+            p[0] = ('Operacion Matematica', p[1], p[2], p[3])
+            return  # Salir de la función después de permitir la operación
+        else:
+            # Registro de error semántico si los tipos no son compatibles
+            with open('bitacora_De_Errores.html', 'a') as f:
+                f.write(f"<p>Error Semántico: No se puede realizar la operación matemática entre '{p[1]}' y '{p[3]}' en la línea: {p.lineno(1)}.</p>\n")
+            return
+    # Si p[1] no es una variable, aplicar la regla original
+    if (isinstance(p[1], (int, float)) and isinstance(p[3], (int, float))) or isinstance(p[1], str) and isinstance(p[3], str):
+        p[0] = ('Operacion Matematica',p[1], p[2], p[3])
     else:
-        p[0] = (p[1], p[2], p[3])
+        # Registro de error semántico si los tipos no son compatibles
+        with open('bitacora_De_Errores.html', 'a') as f:
+            f.write(f"<p>Error Semántico: No se puede realizar la operación matemática entre '{p[1]}' y '{p[3]}' en la línea: {p.lineno(1)}.</p>\n")
+
+def p_operacion_matematica_v2(p):
+    '''
+    operacion_matematica_v2 : tipo_dato_identificador operador_aritmetico tipo_dato_identificador operador_aritmetico tipo_dato_identificador
+    '''
+    symbol1 = symbol_table.getSymbol(p[1])
+    symbol2 = symbol_table.getSymbol(p[3])
+    symbol3 = symbol_table.getSymbol(p[5])
+
+    # Verificar si p[1] es una variable en la tabla de símbolos
+    if symbol1:
+        # Si p[3] es un entero, permitir la operación si p[1] es numérico
+        if isinstance(p[3], int) and symbol1.type in ['Entero', 'Real']:
+            p[0] = ('Operacion Matematica', p[1], p[2], p[3], p[4], p[5])
+            return  # Salir de la función después de permitir la operación
+        # Si p[3] es una variable, verificar si p[1] y p[3] son compatibles
+        elif symbol2 and symbol1.type == symbol2.type:
+            p[0] = ('Operacion Matematica', p[1], p[2], p[3], p[4], p[5])
+            return  # Salir de la función después de permitir la operación
+        else:
+            # Registro de error semántico si los tipos no son compatibles
+            with open('bitacora_De_Errores.html', 'a') as f:
+                f.write(f"<p>Error Semántico: No se puede realizar la operación matemática entre '{p[1]}' y '{p[3]}' en la línea: {p.lineno(1)}.</p>\n")
+            return
+    # Si p[1] no es una variable, aplicar la regla original
+    if (isinstance(p[1], (int, float)) and isinstance(p[3], (int, float)) and isinstance(p[5], (int, float))) or isinstance(p[1], str) and isinstance(p[3], str) and isinstance(p[5], str):
+        p[0] = ('Operacion Matematica',p[1], p[2], p[3], p[4], p[5])
+    else:
+        # Registro de error semántico si los tipos no son compatibles
+        with open('bitacora_De_Errores.html', 'a') as f:
+            f.write(f"<p>Error Semántico: No se puede realizar la operación matemática entre '{p[1]}' y '{p[3]}' en la línea: {p.lineno(1)}.</p>\n")
 
 def p_operador_aritmetico(p):
     '''
@@ -286,13 +319,7 @@ def p_operador_aritmetico(p):
     '''
     p[0] = p[1]
 
-def p_operacion_matematica_parentesis(p):
-    '''
-    operacion_matematica_parentesis : PAR_IZQ operacion_matematica PAR_DER
-                                    | PAR_IZQ operacion_matematica PAR_DER operador_aritmetico tipo_dato_identificador
-                                    | PAR_IZQ operacion_matematica_parentesis PAR_DER
-    '''
-    p[0] = p[2]
+# HACER REGLAS PARA LAS OPERACIONES MATEMATICAS, QUE PERMITA EL INGRESO DE PARENTESIS Y DEMAS
 
 def p_segun(p):
     '''
@@ -384,34 +411,14 @@ def p_declaracion_variable_funcion(p):
 
 def p_multiple_declaracion_variable_funcion(p):
     '''
-    multiple_declaracion_variable_funcion : DEFINIR ID COMA ID COMO TIPO_DATO
-                                        | DEFINIR ID COMA ID COMA ID COMO TIPO_DATO
-                                        | DEFINIR ID COMA ID COMA ID COMA ID COMO TIPO_DATO
-                                        | DEFINIR ID COMA ID COMA ID COMA ID COMA ID COMO TIPO_DATO
+    multiple_declaracion_variable_funcion : DEFINIR ids COMO TIPO_DATO
     '''
-    if len(p) == 7:
-        p[0] = ('Definicion', p[2], p[4], p[6])
-        symbol_table.insertSymbolFunction(p[2], p[6], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[2]), len(p[2]))
-        symbol_table.insertSymbolFunction(p[4], p[6], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[4]), len(p[4]))
-    elif len(p) == 9:
-        p[0] = ('Definicion', p[2], p[4], p[6], p[8])
-        symbol_table.insertSymbolFunction(p[2], p[8], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[2]), len(p[2]))
-        symbol_table.insertSymbolFunction(p[4], p[8], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[4]), len(p[4]))
-        symbol_table.insertSymbolFunction(p[6], p[8], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[6]), len(p[6]))
-    elif len(p) == 11:
-        p[0] = ('Definicion', p[2], p[4], p[6], p[8], p[10])
-        symbol_table.insertSymbol(p[2], p[10], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[2]), len(p[2]))
-        symbol_table.insertSymbolFunction(p[4], p[10], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[4]), len(p[4]))
-        symbol_table.insertSymbolFunction(p[6], p[10], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[6]), len(p[6]))
-        symbol_table.insertSymbolFunction(p[8], p[10], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[8]), len(p[8]))
-    elif len(p) == 13:
-        p[0] = ('Definicion', p[2], p[4], p[6], p[8], p[10], p[12])
-        symbol_table.insertSymbolFunction(p[2], p[12], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[2]), len(p[2]))
-        symbol_table.insertSymbolFunction(p[4], p[12], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[4]), len(p[4]))
-        symbol_table.insertSymbolFunction(p[6], p[12], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[6]), len(p[6]))
-        symbol_table.insertSymbolFunction(p[8], p[12], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[8]), len(p[8]))
-        symbol_table.insertSymbolFunction(p[10], p[12], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), findPosition(p.slice[10]), len(p[10]))
-
+    p[0] = ('Definicion', p[2], p[4])
+    posicion = 7
+    for var in p[2]:
+        symbol_table.insertSymbolFunction(var, p[4], 'Local', 'Public', 'Variable (Funcion)', p.lineno(1), (findPosition(p.slice[1]) + posicion), len(var))
+        posicion += len(var) + 6
+    
 def p_funciones(p):
     '''
     funciones : funcion funciones
@@ -477,7 +484,12 @@ def p_llamar_funcion_sin_parametros(p):
     '''
     llamar_funcion : ID PAR_IZQ PAR_DER
     '''
-    p[0] = ('Llamar_Funcion', p[1], p[3])
+    var = symbol_table.getSymbol(p[1])
+    if var:
+        p[0] = ('Llamar_Funcion', p[1])
+    else:   
+        with open('bitacora_De_Errores.html', 'a') as f:
+            f.write(f"<p>Error Semántico: La función '{p[1]}' no ha sido declarada previamente. En la línea: {p.lineno(1)}, posicion: {findPosition(p.slice[1])}.</p>\n")
 
 def p_llamar_funcion_con_parametros(p):
     '''

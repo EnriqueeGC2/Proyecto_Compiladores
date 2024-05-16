@@ -45,7 +45,7 @@ class SymbolTable:
             # Verificar si ya existe una entrada con el mismo ámbito y rol   
             #print(f'Error semántico: El símbolo {value} ya ha sido declarado en el ámbito {existingSymbol.scope} con rol {existingSymbol.role}.')
             with open('bitacora_De_Errores.html', 'a') as file:
-                file.write(f'Error semántico: La función {value} ya ha sido declarada. En la linea {line}, posicion {column}\n')
+                file.write(f'Error semántico: El símbolo {value} ya ha sido declarada. En la linea {line}, posicion {column}\n')
             return
         else:
             # Si el símbolo no está en la tabla de símbolos, lo agregamos como una nueva entrada
@@ -92,10 +92,10 @@ class SymbolTable:
             file.write('<table border="1">\n')
             file.write('<tr><th>Token</th><th>Tipo</th><th>Alcance</th><th>Visibilidad</th><th>Rol</th><th>Linea</th><th>Columna</th><th>Tamaño</th>\n')
 
-            for name, symbol in self.symbolTable.items():
+            for name, symbol in self.symbolTableFunctions.items():
                 file.write(f'<tr><td>{symbol.value}</td><td>{symbol.type}</td><td>{symbol.scope}</td><td>{symbol.visibility}</td><td>{symbol.role}</td><td>{symbol.line}</td><td>{symbol.column}</td><td>{symbol.size}</td></tr>\n')
 
-            for name, symbol in self.symbolTableFunctions.items():
+            for name, symbol in self.symbolTable.items():
                 file.write(f'<tr><td>{symbol.value}</td><td>{symbol.type}</td><td>{symbol.scope}</td><td>{symbol.visibility}</td><td>{symbol.role}</td><td>{symbol.line}</td><td>{symbol.column}</td><td>{symbol.size}</td></tr>\n')
 
             file.write('</table>\n')

@@ -12,17 +12,22 @@ Funcion suma PUN_Y_COM
     FinFuncion
 
 Algoritmo 
-    Definir u Como Entero
+    Definir u COMA m Como Entero
     Definir j Como Real
     Definir k Como Caracter 
     Definir l Como Logico
-    var1 ASIGNAR 0
-    var2 ASIGNAR A_COM Hola Mundo C_COM MAS 10
+    u ASIGNAR 5
+    j ASIGNAR 1.5 MAS 1    
+    j ASIGNAR 1.5 
+    
+
     Escribir A_COM Hola mundo C_COM    
+    j ASIGNAR 1.5 MAS 1 POR 5 
+
     Leer u
     Leer j
     Leer k
-    Leer l
+    Leer p
 
     var2 ASIGNAR 2 MAS A_COM esto deberia ser un error semantico C_COM
 
@@ -31,26 +36,30 @@ Algoritmo
     FinPara
 
     Para hola Desde 0 Hasta 15 Con_Paso 2 Hacer
-        Escribir hola 
+        Escribir hola
     FinPara
 
-    suma PAR_IZQ PAR_DER
+    sumas PAR_IZQ PAR_DER
 
     Mientras i ES_MAYOR_QUE 5 Hacer
         Escribir i
-        i ASIGNAR i MAS 1
     FinMientras
+
     Segun i Hacer
-        1 DOS_PUN Escribir A_COM Uno C_COM
-        2 DOS_PUN Escribir A_COM Dos C_COM
-        3 DOS_PUN Escribir A_COM Tres C_COM
+        1 DOS_PUN 
+            Escribir A_COM Uno C_COM
+        2 DOS_PUN 
+            Escribir A_COM Dos C_COM
+        3 DOS_PUN 
+            Escribir A_COM Tres C_COM
         De_Otro_Modo Escribir A_COM Otro C_COM
     FinSegun
+
     Si i ES_MENOR_QUE 10 Entonces
         Escribir A_COM Menor que 10 C_COM 
     Si_No
         Escribir A_COM Mayor o igual que 10 C_COM
 
     Escribir A_COM Fin del programa C_COM
-FinSi
+    FinSi
 FinAlgoritmo
